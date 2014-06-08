@@ -4,11 +4,11 @@ var redraw, g, renderer;
 /* only do all this when document has finished loading (needed for RaphaelJS) */
 window.onload = function() {
     
-    // var width = $(document).width() - 20;
-    // var height = $(document).height() - 60;
+    var width = $(document).width() - 20;
+    var height = $(document).height() - 60;
        
-    var width = 800;
-    var height = 600;
+    // var width = 800;
+    // var height = 600;
     
     g = new Graph();
     g.edgeFactory.template.style.directed = true;
@@ -25,6 +25,8 @@ window.onload = function() {
        consult the RaphaelJS reference for details http://raphaeljs.com/) */
    var render = function(r, n) {
        var label = r.text(50, 25, n.label)
+       console.log(n)
+       console.log(r)
        // .attr({opacity:1});
         /* the Raphael set is obligatory, containing all you want to display */
        var set = r.set().push(
@@ -46,6 +48,17 @@ window.onload = function() {
 	   // set.tooltip(r.set().push(r.rect(0, 0, 30, 30).attr({"fill": "#fec", "stroke-width": 1, r : "9px"})).hide());
        return set;
    };
+
+   var render = function(r, n) {
+            /* the Raphael set is obligatory, containing all you want to display */
+            
+            // strlen = n.label.length
+            var set = r.set().push(
+                /* custom objects go here */
+                r.rect(n.point[0]-0, n.point[1]-13, 60, 45).attr({"fill": "#FFF", r : "9px","stroke-width": "2px","stroke":"#3BA3F5"})).push(
+                r.text(n.point[0]+20, n.point[1] + 12, (n.label || n.id) ) );
+            return set;
+        };
 	
 //     g.addNode("1", {
 //         label : "meat and greed" ,
@@ -77,6 +90,13 @@ window.onload = function() {
     label : "root" ,
     render : render
     });
+
+    g.addNode("job5",{  render : render })
+    g.addNode("job6",{  render : render })
+    g.addNode("job7",{  render : render })
+    g.addNode("job8",{  render : render })
+    g.addNode("job9",{  render : render })
+    g.addNode("job10",{  render : render })
 
 
 
@@ -115,6 +135,16 @@ window.onload = function() {
     g.addEdge("job1", "job2");
     g.addEdge("job2", "job3");
     g.addEdge("job2", "job4");
+
+    g.addEdge("job4", "job5");
+    g.addEdge("job5", "job6");
+    g.addEdge("job5", "job7");
+    g.addEdge("job5", "job8");
+
+
+    g.addEdge("job8", "job9");
+    g.addEdge("job8", "job10");
+    g.addEdge("job4", "job7");
     
     // g.addEdge("Wheat", "node2", st);
 
